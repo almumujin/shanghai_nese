@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+    {% block title %}
+        文章管理
+    {% endblock %}
+    {% block head %}
+     <script type="text/javascript" src="/static/js/passage_manage.js"></script>
+    {% endblock %}
+    {% block main %}
+        <ul class="nav nav-pills">
+          <li role="presentation" ><a href="{{ url_for('user_manage',page=1) }}">用户管理</a></li>
+          <li role="presentation" class="active"><a href="{{ url_for('passage_manage') }}">文章管理</a></li>
+          <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+        <h3 class="text-success">添加文章</h3>
+        <form method="POST" action="{{ url_for('passage.add_passage') }}" name="add_passage" enctype="multipart/form-data">
+        <div class="form-group has-success has-feedback">
+          <label class="control-label" for="inputSuccess2">文章标题</label>
+          <input type="text" class="form-control" id="ptitle" aria-describedby="inputSuccess2Status" name="ptitle">
+          <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+          <span id="inputSuccess2Status" class="sr-only">(success)</span>
+        </div>
+        <div class="form-group has-warning has-feedback">
+          <label class="control-label" for="inputWarning2">文章链接</label>
+          <input type="text" class="form-control" id="purl" aria-describedby="inputWarning2Status" name="purl">
+          <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+          <span id="inputWarning2Status" class="sr-only">(warning)</span>
+        </div>
+        <div class="form-group ">
+            <label for="exampleInputFile" class="text-danger">文章图片</label>
+            <input type="file" id="ppic" name="ppic">
+          </div>
+        <button class="btn btn-info">添加文章</button>
+        </form>
+        <div>
+            {% for msg in get_flashed_messages() %}
+            {{ msg }}
+            {% endfor %}
+        </div>
+        <div style="height: 2px; width:100%; border-top:1px solid black;float: left;margin-top: 15px;margin-bottom: 15px"></div>
+        <h3 class="text-warning">删除文章</h3>
+        <div class="form-group has-success">
+          <input type="hidden" value="web" name="type" id="delete_collection_type">
+          <label class="control-label" for="inputWarning2">文章ID</label>
+          <input type="text" class="form-control" id="delete_collection_pid"  placeholder="文章ID">
+        </div>
+        <button class="btn btn-success" onclick="delete_passage()">删除文章</button>
+        <div style="height: 2px; width:100%; border-top:1px solid black;float: left;margin-top: 15px;margin-bottom: 15px"></div>
+        <div class="query_passage">
+          <h3 class="text-info">查询文章</h3>
+          <input type="hidden" value="web" name="type" id="query_passage_type">
+          <div class="form-group has-success">
+            <input type="text" class="form-control" id="query_passage_pid"  placeholder="文章ID">
+          </div>
+          <table class="table">
+            <tr class="active">
+                <td>文章ID:</td>
+                <td id="query_passage_pid2">null</td>
+            </tr>
+            <tr class="warning">
+                <td>文章标题:</td>
+                <td id="query_passage_ptitle">null</td>
+            </tr>
+            <tr class="success">
+                <td>文章链接:</td>
+                <td id="query_passage_purl">null</td>
+            </tr>
+            <tr>
+                <td class="ppic" >文章图片:</td>
+                <td class="image" ><img src="/static/images/test2.png" alt="ppic" class="img-circle" id="query_passage_ppic"></td>
+            </tr>
+          </table>
+          <button class="btn btn-warning" onclick="query_passage()">查询文章</button>
+        </div>
+        <div style="height: 2px; width:100%; border-top:1px solid black;float: left;margin-top: 15px;margin-bottom: 15px"></div>
+        <h3 class="page-title">添加收藏</h3>
+        <div class="add_coolection">
+        <input type="hidden" value="web" name="type" id="add_collection_type">
+        <div class="form-group has-success">
+          <input type="text" class="form-control" id="add_collection_id"  placeholder="用户ID">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="add_collection_password" placeholder="用户密码">
+        </div>
+        <div class="form-group has-warning">
+          <input type="text" class="form-control" id="add_collection_pid"  placeholder="文章ID">
+        </div>
+        <div class="form-group has-error">
+          <input type="text" class="form-control" id="add_collection_date" placeholder="收藏时间">
+        </div>
+        <button class="btn btn-primary" onclick="add_collection()">添加收藏</button>
+        </div>
+        <div style="height: 2px; width:100%; border-top:1px solid black;float: left;margin-top: 15px;margin-bottom: 15px"></div>
+
+    {% endblock %}

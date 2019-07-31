@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Product - Dashboard Admin Template</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="/static/css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="/jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+    <!-- http://api.jqueryui.com/datepicker/ -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="/static/css/tooplate.css">
+</head>
+
+<body class="bg02">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                    <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                        <a class="navbar-brand" href="#">
+                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                            <h1 class="tm-site-title mb-0">沪语者管理系统</h1>
+                        </a>
+                        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ url_for('index') }}">首页
+
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('user_manage',page=1) }}">用户管理
+                                    <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  class="nav-link active" href="{{ url_for('passage_manage',page1=1,page2=1) }}">文章管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('manage') }}">情景管理</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                              {% if message %}
+                                <li><a class="nav-link" href="#">{{ message.username }}</a></li>
+                                <li><a class="nav-link" href="{{ url_for('logout') }}">注销</a></li>
+                               {% else %}
+                                <li><a class="nav-link" href="{{ url_for('login') }}">登录</a></li>
+                                <li><a class="nav-link" href="{{ url_for('regist') }}">注册</a></li>
+                              {% endif %}
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+        </div>
+        <!-- row -->
+        <div class="row tm-mt-big">
+            <div class="col-xl-8 col-lg-10 col-md-12 col-sm-12">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block">Add Passage</h2>
+                        </div>
+                    </div>
+                    <div class="row mt-4 tm-edit-product-row">
+                        <div class="col-xl-7 col-lg-7 col-md-12">
+                            <form class="tm-edit-product-form"  id="add_passage_form" method="POST">
+                                <div class="input-group mb-3">
+                                    <label for="name" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                        Passage Title
+                                    </label>
+                                    <input id="ptitle" name="ptitle" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label for="expire_date" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                        Passage URL
+                                    </label>
+                                    <input id="purl" name="purl" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"
+                                        data-large-mode="true">
+                                </div>
+                            </form>
+                                <div class="input-group mb-3">
+                                    <div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+                                        <button type="submit" class="btn btn-primary" onclick="add_passage();">Add
+                                        </button>
+                                    </div>
+                                </div>
+
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 mx-auto mb-4">
+                            <div class="tm-product-img-dummy mx-auto">
+                                <img src="/static/images/profile-image.png" alt="Passage Image" class="img-fluid" id="add_passage_ppic" onclick="document.getElementById('ppic').click();">
+                            </div>
+                            <div class="custom-file mt-3 mb-3">
+                                <input id="ppic" type="file" style="display:none;" name="ppic"/>
+                                <input type="button" class="btn btn-primary d-block mx-auto" value="Upload ..." />
+                            </div>
+{#                            <script>#}
+{#                                var image = '';#}
+{#                                function read_image(file) {#}
+{#                                    if(!file.files || !file.files[0]){#}
+{#                                        return;#}
+{#                                    }#}
+{#                                    var reader = new FileReader();#}
+{#                                    reader.onload = function (evt) {#}
+{#                                        document.getElementById('ppic').src = evt.target.result;#}
+{#                                        image = evt.target.result;#}
+{#                                    }#}
+{#                                    reader.readAsDataURL(file.files[0]);#}
+{#                                }#}
+{#                            </script>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/add_passage.js"></script>
+
+    <!-- https://jquery.com/download/ -->
+
+    <!-- https://jqueryui.com/download/ -->
+{#    <script src="/static/js/bootstrap.min.js"></script>#}
+    <!-- https://getbootstrap.com/ -->
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{% extends 'base.html'%}
+    {% block title %}
+        管理
+    {% endblock %}
+    {% block head %}
+    {% endblock %}
+    {% block main %}
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="{{ url_for('user_manage') }}">用户管理</a></li>
+          <li role="presentation"><a href="{{ url_for('passage_manage') }}">文章管理</a></li>
+          <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+    {% endblock %}

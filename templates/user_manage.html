@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Accounts Page - Dashboard Template</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/user_manage.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <!-- https://fonts.google.com/specimen/Open+Sans -->
+    <link rel="stylesheet" href="/static/css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="/static/css/tooplate.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/js/user_manage.js"></script>
+</head>
+
+<body class="bg04">
+    <div class="container">
+        <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                        <a class="navbar-brand" href="#">
+                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                            <h1 class="tm-site-title mb-0">沪语者管理系统</h1>
+                        </a>
+                        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mx-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ url_for('index') }}">首页
+
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{{ url_for('user_manage',page=1) }}">用户管理
+                                    <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('passage_manage',page1=1,page2=1) }}">文章管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('scene_manage') }}">情景管理</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                              {% if message %}
+                                <li><a class="nav-link" href="#">{{ message.username }}</a></li>
+                                <li><a class="nav-link" href="{{ url_for('logout') }}">注销</a></li>
+                               {% else %}
+                                <li><a class="nav-link" href="{{ url_for('login') }}">登录</a></li>
+                                <li><a class="nav-link" href="{{ url_for('regist') }}">注册</a></li>
+                              {% endif %}
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        <!-- row -->
+        <div class="row tm-content-row tm-mt-big">
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block">Accounts</h2>
+                        </div>
+                    </div>
+                    <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
+                        {% if users.items[0] %}
+                        <li class="tm-list-group-item">
+                            <a class="color_a" href="{{ url_for('users.get_user', id=users.items[0].id,page=users.page) }}"> {{ users.items[0].username }}</a>
+                        </li>
+                        {% endif %}
+                        {% if users.items[1] %}
+                        <li class="tm-list-group-item">
+                            <a class="color_a" href="{{ url_for('users.get_user', id=users.items[1].id,page=users.page) }}">
+                            {{ users.items[1].username }}</a>
+                        </li>
+                        {% endif %}
+                        {% if users.items[2] %}
+                        <li class="tm-list-group-item">
+                            <a class="color_a" href="{{ url_for('users.get_user', id=users.items[2].id,page=users.page) }}">
+                            {{ users.items[2].username }}</a>
+                        </li>
+                        {% endif %}
+                        {% if users.items[3] %}
+                        <li class="tm-list-group-item">
+                            <a class="color_a" href="{{ url_for('users.get_user', id=users.items[3].id,page=users.page) }}">
+                            {{ users.items[3].username }}</a>
+                        </li>
+                        {% endif %}
+                        {% if users.items[4] %}
+                        <li class="tm-list-group-item">
+                            <a class="color_a" href="{{ url_for('users.get_user', id=users.items[4].id,page=users.page) }}">
+                            {{ users.items[4].username }}</a>
+                        </li>
+                        {% endif %}
+                    </ol>
+                    <div class="pagination_margin">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                {% if users.has_prev %}
+                                    {% set temp = users.page - 1 %}
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('user_manage',page=temp) }}">Previous</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                {% endif %}
+                                <li class="page-item"><a class="page-link" href="#">{{ users.page }}&nbsp;/&nbsp;{{ users.pages }}</a></li>
+                                {% if users.has_next %}
+                                    {% set temp = users.page + 1 %}
+                                    <li class="page-item"><a class="page-link" href="{{ url_for('user_manage',page=temp) }}">Next</a></li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+            <div class="tm-col tm-col-big">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title">Edit Account</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="{{ url_for('users.modify_user_message',id=user.id,page=users.page) }}" class="tm-signup-form" method="POST">
+                                <input type="hidden" value="web" name="type">
+                                {% if user %}
+                                <div class="form-group">
+                                    <label for="name">Account Name</label>
+                                    <input value="{{ user.username }}" placeholder="Account Name" id="username" name="username" type="text" class="form-control validate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nickname">Account Nickname</label>
+                                    <input placeholder="Account Nickname" id="nickname" value="{{ user.nickname }}" name="nickname" type="text" class="form-control validate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input placeholder="Password" id="password" value="{{ user.password }}" name="password" type="text" class="form-control validate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sex">Sex</label>
+                                    {% if user.sex == 1 %}
+                                        <input placeholder="Sex" id="sex" value="男" name="sex" type="text" class="form-control validate">
+                                    {% else %}
+                                        <input placeholder="Sex" id="sex" value="女" name="sex" type="text" class="form-control validate">
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input placeholder="telephone" value="{{ user.telephone }}" id="phone" name="telephone" type="tel" class="form-control validate">
+                                </div>
+                                {% else %}
+                                <div class="form-group">
+                                    <label for="name">Account Name</label>
+                                    <input placeholder="Account Name" id="name" name="name" type="text" class="form-control validate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nickname">Account Nickname</label>
+                                    <input placeholder="Nickname" id="email" name="email" type="text" class="form-control validate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input placeholder="Password" id="password" name="password" type="text" class="form-control validate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sex">Sex</label>
+                                    <input placeholder="Sex" id="sex" name="password2" type="password" class="form-control validate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input placeholder="telephone" id="phone" name="phone" type="text" class="form-control validate">
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-12 col-sm-4">
+                                        <button type="submit" class="btn btn-primary">Update
+                                        </button>
+                                    </div>
+
+                                    <div class="col-12 col-sm-8 tm-btn-right">
+                                        <button type="submit" class="btn btn-danger">Delete Account
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    {% for msg in get_flashed_messages() %}
+                                    {{ msg }}
+                                    {% endfor %}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tm-col tm-col-small">
+                <div class="bg-white tm-block">
+                    <h2 class="tm-block-title">User Image</h2>
+                    {% if user.head_image %}
+                        <img src="{{ user.head_image }}" alt="Head Image" class="img-fluid" id="head_image" onclick="document.getElementById('modify_image_head_image').click();">
+                    {% else %}
+                        <img src="/static/images/profile-image.png" alt="Profile Image" class="img-fluid" id="head_image2" onclick="document.getElementById('modify_image_head_image').click();">
+                    {% endif %}
+                    <form method="POST" enctype="multipart/form-data" id="modify_image_form">
+                        <div class="custom-file mt-3 mb-3">
+                            <input type="hidden" value="web" name="type" id="modify_image_type">
+                            <input id="modify_image_head_image" type="file" style="display: none" name="head_image" />
+                            <input type="button" class="btn btn-primary d-block mx-xl-auto" value="Upload New..." onclick="upload({{ user.id }})"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+</body>
+
+</html>

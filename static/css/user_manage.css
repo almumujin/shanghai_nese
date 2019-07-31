@@ -1,0 +1,22 @@
+.img-circle{
+    height: auto;
+    width: auto;
+}
+
+.head_image{
+    text-align: center;
+    margin-top: 70px;
+}
+
+.image{
+    height: 140px;
+    width: 140px;
+}
+
+.pagination_margin{
+    margin-top: 100px;
+}
+
+.color_a{
+    color: gray;
+}
